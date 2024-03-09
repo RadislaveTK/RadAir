@@ -1,4 +1,6 @@
 <?php
+
+namespace RadAir;
 class Page
 {
     public $title = '';
@@ -8,10 +10,9 @@ class Page
     function __construct($title)
     {
         $this->title = $title;
-        $_SESSION['title'] = $title;
         $this->url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $this->module = parse_url($this->url, PHP_URL_QUERY);
-        $_SESSION['parms'] = $this->module;
+        $_SESSION['page'] = $this;
     }
 
     public function top($top) {
@@ -35,9 +36,6 @@ class Page
 
     function __destruct()
     {
-
-        unset($_SESSION["title"]);
-        unset($_SESSION["parms"]);
-        session_write_close();
+        unset($_SESSION["page"]);
     }
 }

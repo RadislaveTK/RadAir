@@ -1,5 +1,5 @@
 <?php
-
+namespace RadAir;
 class Router
 {
     public $not_page = "";
@@ -27,6 +27,10 @@ class Router
         } else {
             include $this->not_page;
         }
+    }
+
+    public function get_URLs() {
+        return(array_keys($this->routes));
     }
 
 }
